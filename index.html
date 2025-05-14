@@ -1,18 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Kvadrātvienādojuma risinātājs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      background-color: #f2f2f2;
+    }
+    input {
+      margin: 10px;
+      padding: 8px;
+      width: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .rezultats {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <h1>Darbs ar GitHub</h1>
-    <button onclick="dari()">OK</button>
+  <h2>Kvadrātvienādojuma risinātājs</h2>
+  <input type="number" id="ak" placeholder="a">
+  <input type="number" id="bk" placeholder="b">
+  <input type="number" id="ck" placeholder="c"><br>
+  <button onclick="aprekinat()">Aprēķināt</button>
+  <div class="rezultats" id="rezultats"></div>
 
-    <script>
-        function dari(){
-            alert('Sveiki');
-        }
-    </script>
+
+
+
+  <script>
+    function disk(a, b, c) {
+      return b * b - 4 * a * c;
+    }
+
+
+    function saknes(a,b, D) {
+      
+      if (D < 0) {
+        return false;
+      } else {
+        var x1 = (-b + Math.sqrt(D)) / (2 * a);
+        var x2 = (-b - Math.sqrt(D)) / (2 * a);
+        return [x1, x2] ;
+      }
+    }
+
+    function aprekinat() {
+      var a = Number(ak.value);
+      var b = Number(bk.value);
+      var c = Number(ck.value);
+
+      if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+        rezultats.innerHTML = "Lūdzu ievadi korektus koeficientus! (a ≠ 0)";
+        return;
+      }
+
+      var atb = saknes(a,b, disk(a,b,c));
+      if (atb === false) {
+        rezultats.innerHTML = "Kvadrātvienādojumam nav reālu sakņu.";
+      } else {
+        rezultats.innerHTML = `Saknes: x₁ = ${atb[0].toFixed(3)}, x₂ = ${atb[1].toFixed(3)}`;
+      }
+    }
+
+
+  </script>
 </body>
 </html>
